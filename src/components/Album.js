@@ -3,6 +3,7 @@ import React from 'react';
 import Header from './Header';
 import getMusics from '../services/musicsAPI';
 import Loading from './Loading';
+import MusicCard from './MusicCard';
 
 class Album extends React.Component {
   constructor() {
@@ -23,7 +24,6 @@ class Album extends React.Component {
 
   render() {
     const { songid, loading, artistInfo } = this.state;
-    console.log('aaaaaaaa', songid[1]);
     return (
       <main data-testid="page-album">
         <Header />
@@ -45,20 +45,13 @@ class Album extends React.Component {
               <div>
                 {songid
                   .filter((e) => e.kind)
-                  .map(({
-                    trackName, previewUrl,
-                  }) => (
-                    <div key={ trackName }>
-                      <p>
-                        {trackName}
-                      </p>
-                      <audio data-testid="audio-component" src={ previewUrl } controls>
-                        <track kind="captions" />
-                        O seu navegador não suporta o elemento
-                        {' '}
-                        <code>audio</code>
-                        .
-                      </audio>
+                  .map((songInfo) => (
+                    <div key={ songInfo.trackName }>
+                      <MusicCard
+                        trackName={ songInfo.trackName }
+                        previewUrl={ songInfo.previewUrl }
+                        favoritedSong={ songInfo }
+                      />
                     </div>
                   ))}
 
