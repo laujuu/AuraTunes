@@ -12,6 +12,16 @@ class MusicCard extends React.Component {
     };
   }
 
+  componentDidMount() {
+    const { savedFavoritedSong } = this.props;
+    const { favoritedSong: { trackId } } = this.props;
+    const savedSong = savedFavoritedSong
+      .some((favoritedSong) => favoritedSong.trackId === trackId);
+    if (savedSong) {
+      return this.setState({ isChecked: true });
+    }
+  }
+
     addToFavorites = async () => {
       const { favoritedSong } = this.props;
       this.setState({ loading: true, isChecked: true });
@@ -56,8 +66,8 @@ class MusicCard extends React.Component {
 }
 
 MusicCard.propTypes = {
-  trackId: PropTypes.number.isRequired,
-  favoritedSong: PropTypes.string.isRequired,
+  favoritedSong: PropTypes.instanceOf(Object).isRequired,
+  savedFavoritedSong: PropTypes.instanceOf(Array).isRequired,
   previewUrl: PropTypes.string.isRequired,
   trackName: PropTypes.string.isRequired,
 };

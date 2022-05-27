@@ -2,6 +2,7 @@ import propTypes from 'prop-types';
 import React from 'react';
 import Header from './Header';
 import getMusics from '../services/musicsAPI';
+import { getFavoriteSongs } from '../services/favoriteSongsAPI';
 import Loading from './Loading';
 import MusicCard from './MusicCard';
 
@@ -12,6 +13,7 @@ class Album extends React.Component {
       songid: [],
       artistInfo: '',
       loading: false,
+      previousFavoritedStatus: [],
     };
   }
 
@@ -19,11 +21,17 @@ class Album extends React.Component {
     const { match: { params: { id } } } = this.props;
     this.setState({ loading: true });
     const getMusicID = await getMusics(id);
-    this.setState({ songid: getMusicID, artistInfo: getMusicID[0], loading: false });
+    const saveFavoritedStatus = await getFavoriteSongs();
+    this.setState({
+      songid: getMusicID,
+      previousFavoritedStatus: saveFavoritedStatus,
+      artistInfo: getMusicID[0],
+      loading: false,
+    });
   }
 
   render() {
-    const { songid, loading, artistInfo } = this.state;
+    const { songid, loading, artistInfo, previousFavoritedStatus } = this.state;
     return (
       <main data-testid="page-album">
         <Header />
@@ -51,6 +59,7 @@ class Album extends React.Component {
                         trackName={ songInfo.trackName }
                         previewUrl={ songInfo.previewUrl }
                         favoritedSong={ songInfo }
+                        savedFavoritedSong={ previousFavoritedStatus }
                       />
                     </div>
                   ))}
