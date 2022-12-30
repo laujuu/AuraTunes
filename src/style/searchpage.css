@@ -1,0 +1,36 @@
+.search-title, .main-section, .sub, .album-section {
+    display: flex;
+    justify-content: center;
+}
+
+.album-grid {
+    display: grid;
+    grid-template-columns: 500px 500px 500px;
+    margin-top: 5%;
+}
+
+.album-info {
+    top: 10%;
+    transition: transform 0.5s ease;
+}
+
+.album-info:hover {
+    transform: scale(1.1);
+    background-color: #2f2e41;
+    z-index: 1;
+}
+
+.album-image {
+    position: absolute;
+}
+
+
+.artist-info {
+    margin-bottom: 10%;
+    margin-left: 30%;
+}
+
+.album-link {
+    color: #df4763;
+
+}
