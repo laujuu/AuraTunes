@@ -2,6 +2,8 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { createUser } from '../services/userAPI';
 import Loading from './Loading';
+import '../style/loginpage.css';
+import relaxingLogo from '../images/relaxing-beach-day.svg';
 
 class Login extends React.Component {
   constructor() {
@@ -37,22 +39,32 @@ class Login extends React.Component {
          } = this.state;
 
          return (
-           <main>
+           <main className="login-main">
              { loading && <Loading /> }
              { login && <Redirect to="/search" /> }
-             <div data-testid="page-login">
+             <img className="logoimg" src={ relaxingLogo } alt="couple relaxing" />
+             <div className="loginForm" data-testid="page-login">
                <form className="main-left">
-                 <label htmlFor="name">
-                   Nome
+                 <div className="title-main">
+                   <h1>Boas vindas à</h1>
+                   <h1 className="txt">&nbsp;AuraTunes</h1>
+                 </div>
+                 <div className="subtitle">
+                   <h3>Uma forma simples de gerenciar suas músicas</h3>
+                 </div>
+                 <label className="userInput" htmlFor="name">
+                   Ensira seu usuário
                    <br />
                    <input
+                     placeholder="Exemplo: Leoa Serena"
                      type="text"
                      name="name"
                      onChange={ this.onInputChange }
                      data-testid="login-name-input"
                    />
                  </label>
-
+                 <br />
+                 <br />
                  <button
                    type="button"
                    disabled={ isButtonDisabled }
