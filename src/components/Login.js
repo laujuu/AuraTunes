@@ -40,10 +40,10 @@ class Login extends React.Component {
 
          return (
            <main className="login-main">
-             { loading && <Loading /> }
              { login && <Redirect to="/search" /> }
              <img className="logoimg" src={ relaxingLogo } alt="couple relaxing" />
              <div className="loginForm" data-testid="page-login">
+               { loading && <Loading /> }
                <form className="main-left">
                  <div className="title-main">
                    <h1>Boas vindas à</h1>
