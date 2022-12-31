@@ -1,0 +1,25 @@
+.header-links,
+.user-info {
+  display: flex;
+  justify-content: center;
+  background-color: #564fcc;
+}
+
+.user-info {
+  background-color: #2739a0;
+}
+
+.links {
+  margin-top: 20px;
+  color: aliceblue;
+  margin-left: 20px;
+  font-size: 1.4em;
+  margin-bottom: 20px;
+  text-decoration: none !important;
+  transition: transform 0.3s ease;
+}
+
+.links:hover {
+  color: #df4763;
+  transform: scale(1.1);
+}
