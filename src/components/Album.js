@@ -5,6 +5,7 @@ import getMusics from '../services/musicsAPI';
 import { getFavoriteSongs } from '../services/favoriteSongsAPI';
 import Loading from './Loading';
 import MusicCard from './MusicCard';
+import '../style/albumcard.css';
 
 class Album extends React.Component {
   constructor() {
@@ -37,7 +38,7 @@ class Album extends React.Component {
         <Header />
         { loading ? <Loading />
           : (
-            <div>
+            <div className="album-card">
               <div>
                 <img
                   src={ artistInfo.artworkUrl100 }

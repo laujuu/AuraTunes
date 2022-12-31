@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { addSong } from '../services/favoriteSongsAPI';
+import { addSong, removeSong } from '../services/favoriteSongsAPI';
 import Loading from './Loading';
+import '../style/musiccard.css';
 
 class MusicCard extends React.Component {
   constructor() {
@@ -24,9 +25,14 @@ class MusicCard extends React.Component {
 
     addToFavorites = async () => {
       const { favoritedSong } = this.props;
-      this.setState({ loading: true, isChecked: true });
-      await addSong(favoritedSong);
-      this.setState({ loading: false });
+      const { isChecked } = this.state;
+      if (isChecked) {
+        this.setState({ loading: false, isChecked: false });
+        await removeSong(favoritedSong);
+      } else {
+        this.setState({ loading: false, isChecked: true });
+        await addSong(favoritedSong);
+      }
     }
 
     render() {
@@ -36,7 +42,7 @@ class MusicCard extends React.Component {
         <main>
           { loading ? <Loading />
             : (
-              <div>
+              <div className="track-main">
                 <p>
                   {trackName}
                 </p>
@@ -56,7 +62,7 @@ class MusicCard extends React.Component {
                     onChange={ this.addToFavorites }
                     checked={ isChecked }
                   />
-                  Favorita
+                  Favoritar
                 </label>
               </div>
             )}
