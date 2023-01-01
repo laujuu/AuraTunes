@@ -14,7 +14,7 @@ class Album extends React.Component {
       songid: [],
       artistInfo: '',
       loading: false,
-      previousFavoritedStatus: [],
+      favorites: [],
     };
   }
 
@@ -25,14 +25,19 @@ class Album extends React.Component {
     const saveFavoritedStatus = await getFavoriteSongs();
     this.setState({
       songid: getMusicID,
-      previousFavoritedStatus: saveFavoritedStatus,
+      favorites: [saveFavoritedStatus],
       artistInfo: getMusicID[0],
       loading: false,
     });
   }
 
+  onFavoritesUpdateList = async () => {
+    const saveFavoritedStatus = await getFavoriteSongs();
+    this.setState({ favorites: [saveFavoritedStatus] });
+  }
+
   render() {
-    const { songid, loading, artistInfo, previousFavoritedStatus } = this.state;
+    const { songid, loading, artistInfo, favorites } = this.state;
     return (
       <main data-testid="page-album">
         <Header />
@@ -59,14 +64,14 @@ class Album extends React.Component {
                       <MusicCard
                         trackName={ songInfo.trackName }
                         previewUrl={ songInfo.previewUrl }
+                        tackId={ songInfo.trackId }
                         favoritedSong={ songInfo }
-                        savedFavoritedSong={ previousFavoritedStatus }
+                        savedFavoritedSong={ favorites }
+                        onFavoritesUpdate={ this.onFavoritesUpdateList }
                       />
                     </div>
                   ))}
-
               </div>
-
             </div>
           )}
       </main>

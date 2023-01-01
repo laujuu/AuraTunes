@@ -6,6 +6,11 @@
   justify-content: center;
 }
 
+.search-title {
+  background-color: #2f2e41;
+  padding: 1.2%;
+}
+
 .album-grid {
   display: grid;
   grid-template-columns: 500px 500px 500px;

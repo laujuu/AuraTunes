@@ -14,29 +14,30 @@ class MusicCard extends React.Component {
   }
 
   componentDidMount() {
-    const { savedFavoritedSong } = this.props;
-    const { favoritedSong: { trackId } } = this.props;
+    const { savedFavoritedSong, trackId } = this.props;
     const savedSong = savedFavoritedSong
       .some((favoritedSong) => favoritedSong.trackId === trackId);
-    if (savedSong) {
-      return this.setState({ isChecked: true });
+    if (!savedSong) {
+      this.setState({ isChecked: false });
     }
   }
 
     addToFavorites = async () => {
-      const { favoritedSong } = this.props;
+      const { trackName, previewUrl, trackId, onFavoritesUpdate } = this.props;
       const { isChecked } = this.state;
-      if (isChecked) {
-        this.setState({ loading: false, isChecked: false });
-        await removeSong(favoritedSong);
-      } else {
+      if (!isChecked) {
         this.setState({ loading: false, isChecked: true });
-        await addSong(favoritedSong);
+        await addSong({ trackName, previewUrl, trackId });
+        await onFavoritesUpdate();
+      } else {
+        this.setState({ loading: false, isChecked: false });
+        await removeSong({ trackName, previewUrl, trackId });
+        await onFavoritesUpdate();
       }
     }
 
     render() {
-      const { favoritedSong: { previewUrl, trackName, trackId } } = this.props;
+      const { previewUrl, trackName, trackId } = this.props;
       const { loading, isChecked } = this.state;
       return (
         <main>
@@ -54,10 +55,10 @@ class MusicCard extends React.Component {
                   .
                 </audio>
 
-                <label htmlFor="fav-input">
+                <label htmlFor="favinput">
                   <input
                     data-testid={ `checkbox-music-${trackId}` }
-                    id="fav-input"
+                    id="favinput"
                     type="checkbox"
                     onChange={ this.addToFavorites }
                     checked={ isChecked }
@@ -72,10 +73,11 @@ class MusicCard extends React.Component {
 }
 
 MusicCard.propTypes = {
-  favoritedSong: PropTypes.instanceOf(Object).isRequired,
+  onFavoritesUpdate: PropTypes.func.isRequired,
   savedFavoritedSong: PropTypes.instanceOf(Array).isRequired,
   previewUrl: PropTypes.string.isRequired,
   trackName: PropTypes.string.isRequired,
+  trackId: PropTypes.number.isRequired,
 };
 
 export default MusicCard;
