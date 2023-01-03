@@ -3,6 +3,7 @@ import propTypes from 'prop-types';
 import Header from './Header';
 import { getUser, updateUser } from '../services/userAPI';
 import Loading from './Loading';
+import '../style/profileedit.css';
 
 class ProfileEdit extends React.Component {
   constructor() {
@@ -54,42 +55,63 @@ class ProfileEdit extends React.Component {
     return (
       <div data-testid="page-profile-edit">
         <Header />
-        <h1>ProfileEdit</h1>
+        <h1 className="edit-title">ProfileEdit</h1>
         <div>
           { loading ? <Loading />
             : (
-              <form>
-                <input
-                  value={ userName }
-                  name="userName"
-                  type="text"
-                  onChange={ this.handleChange }
-                />
-                <input
-                  value={ userEmail }
-                  name="userEmail"
-                  type="email"
-                  onChange={ this.handleChange }
-                />
-                <input
-                  value={ userDescription }
-                  name="userDescription"
-                  type="textarea"
-                  onChange={ this.handleChange }
-                />
-                <input
-                  value={ imageUrl }
-                  name="imageUrl"
-                  type="text"
-                  onChange={ this.handleChange }
-                />
-                <button
-                  type="button"
-                  onClick={ this.formSubmit }
-                >
-                  Salvar
-                </button>
-              </form>
+              <div>
+                <form className="form-content">
+                  <label className="userNewInput" htmlFor="userName">
+                    Usuário:
+                    <br />
+                    <input
+                      value={ userName }
+                      name="userName"
+                      type="text"
+                      onChange={ this.handleChange }
+                    />
+                  </label>
+                  <label className="userNewInput" htmlFor="userName">
+                    Email:
+                    <br />
+                    <input
+                      value={ userEmail }
+                      name="userEmail"
+                      type="text"
+                      onChange={ this.handleChange }
+                    />
+                  </label>
+                  <label className="userNewInput" htmlFor="userName">
+                    Descrição:
+                    <br />
+                    <input
+                      value={ userDescription }
+                      name="userDescription"
+                      type="text"
+                      onChange={ this.handleChange }
+                    />
+                  </label>
+                  <label className="userNewInput" htmlFor="userName">
+                    Imagem de perfil, ( Link ):
+                    <br />
+                    <input
+                      value={ imageUrl }
+                      name="imageUrl"
+                      type="text"
+                      onChange={ this.handleChange }
+                    />
+                  </label>
+                </form>
+                <div className="btn-container">
+                  <button
+                    className="save-btn"
+                    type="button"
+                    onClick={ this.formSubmit }
+                  >
+                    Salvar
+                  </button>
+                </div>
+              </div>
             ) }
         </div>
       </div>
