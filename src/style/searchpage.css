@@ -15,6 +15,7 @@
   display: grid;
   grid-template-columns: 500px 500px 500px;
   margin-top: 5%;
+  margin-left: 40px;
 }
 
 .album-info {
@@ -40,4 +41,32 @@
 .album-link {
   color: #df4763;
   text-decoration: none !important;
+}
+
+@media screen and (max-width: 870px) {
+  .album-grid {
+  display: grid;
+  grid-template-columns: 200px;
+  margin-top: 5%;
+}
+
+.artist-info {
+  margin-bottom: 10%;
+  margin-left: 60%;
+  text-align: center;
+}
+}
+
+@media screen and (min-width: 870px) and (max-width: 1480px) {
+  .album-grid {
+  display: grid;
+  grid-template-columns: 300px 300px;
+  margin-top: 5%;
+}
+
+.artist-info {
+  margin-bottom: 10%;
+  margin-left: 40%;
+}
+
 }
